@@ -1,5 +1,5 @@
 
-# After the sequence-labeling-BiLSTM-CRF, enhanced version
+# Entity_Recognition with Custom Labels and Data
 
 ![Python](https://img.shields.io/badge/Python-3.8.1-brightgreen.svg)
 ![Tensorflow](https://img.shields.io/badge/TensorFlow-2.3.1-yellowgreen.svg)
