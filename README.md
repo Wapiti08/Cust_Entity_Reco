@@ -14,6 +14,7 @@
 * Based on Redis
 * Custom LabelsA
 * Distributed Gathering
+* Processing English chunks then tokens with single word
 * ... 
 
 
