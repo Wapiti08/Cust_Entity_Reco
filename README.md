@@ -12,7 +12,7 @@
 
 ##### Extended features (On going):
 * Based on Redis
-* Custom LabelsA
+* Custom Labels
 * Distributed Gathering
 * Processing English chunks then tokens with single word
 * ... 
