@@ -1,0 +1,94 @@
+################ Status ################
+folder_name: sequence_labelling
+
+# string: train/test/interactive_predict/api_service
+## default setting for pipelines 
+test_mode:
+  # predict_file: test.csv
+  is_output_sentence_entity:  "True"
+  # unnecessary if is_output_sentence_entity=False
+  output_sentence_entity_file:  test.entity.out
+
+api_mode:
+  # unnecessary to change if keep these as default.
+  ip: 0.0.0.0
+  port: 8000
+
+datasets:
+  datasets_fold:  data/APT
+  update: update
+  test: test
+  predict: predict
+  train_file: train.csv
+  dev_file: dev.csv
+  # test_file:  test.csv
+  delimiter: t
+  # string:(t: "\t";"table")|(b: "backspace";" ")|(c: "comma":", ")(s: "space":"\s")(other, e.g., '|||', ...)
+
+model_parameters:
+  use_pretrained_embedding: False
+  # =========== Choose the path for demo location ==============
+  token_emb_dir:  data/APT/word.emb
+  vocabs_dir: data/APT/vocabs
+  log_dir:  data/APT/logs
+  checkpoints_dir: checkpoints/APT
+  predict_dir:  data/APT/predict
+  sen_dir: data/APT/sen_dict.csv
+
+label_setting:
+  label_scheme: BILUO
+  # string: BIO/BIESO/BILUO
+  label_level: 2
+  # int, 1:BIO/BIESO; 2:BIO/BIESO + suffix
+  # max to 2
+  hyphen: '-'
+  #hyphen=_
+  # string: -|_, for connecting the prefix and suffix: `B_PER', `I_LOC'
+  suffix: [APT, techniques, malwares, tools]
+  # unnecessary if label_level=1
+  #labeling_level:  char
+  labeling_level: word
+  # string: word/char
+  # for English: （word: hello），（char: h）
+  # for Chinese: （word: 你好），（char: 你）
+  measuring_metrics:  [precision, recall, f1, accuracy]
+  # string: accuracy|precision|recall|f1
+  # f1 is compulsory
+
+
+model_config:
+  use_crf: "True"
+  cell_type: GRU
+  # LSTM, GRU
+  biderectional: "True"
+  encoder_layers: 1
+  embedding_dim: 100
+  #int, must be consistent with `token_emb_dir' file
+  hidden_dim: 100
+  #max_sequence_length=100
+  max_sequence_length: 400
+  #int, cautions! set as a LARGE number as possible,
+  # this will be kept during training and inferring, text having length larger than this will be truncated.
+  use_self_attention: "False"
+  attention_dim:  500
+  # unnecessary if use_self_attention=False
+  CUDA_VISIBLE_DEVICES: 0
+  # coincides with tf.CUDA_VISIBLE_DEVICES
+  seed: 42
+  ################ Training Settings ###
+  epoch:  100
+  batch_size: 100
+  dropout:  0.5
+  learning_rate:  0.005
+  optimizer:  Adam
+  #string: GD/Adagrad/AdaDelta/RMSprop/Adam
+  checkpoints_max_to_keep:  3
+  print_per_batch:  20
+  is_early_stop:  "True"
+  patient:  5
+  # unnecessary if is_early_stop=False
+  #checkpoint_name=model
+  checkpoint_name: "model-CRFs"
+
+
+
